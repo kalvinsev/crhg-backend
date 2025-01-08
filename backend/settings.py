@@ -26,8 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,14 +37,21 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crhg",
     "rest_framework",
+    'rest_framework_simplejwt',
+    "corsheaders",
 ]
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # JWT for authentication
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ]
+        # 'rest_framework.permissions.IsAuthenticated',  # Default: Require authentication
+        'rest_framework.permissions.AllowAny',  # Temporarily allow all requests
+    ],
 }
+
 
 
 MIDDLEWARE = [
@@ -57,7 +62,16 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://crhg-app.vercel.app",
+    "https://crhg-app-kalvinsevs-projects.vercel.app",
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = "backend.urls"
 
@@ -109,7 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -127,6 +140,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'assets'),  # Ensure 'assets' folder exists
 # ]
