@@ -66,8 +66,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://crhg-app.vercel.app",
-    "https://crhg-app-kalvinsevs-projects.vercel.app",
+    "https://crhg-production.vercel.app",
     "http://localhost:3000",
 ]
 
